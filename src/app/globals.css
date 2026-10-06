@@ -1,25 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-snow-base: #FAFCFF;
-  --color-snow-card: #FFFFFF;
-  --color-clean-navy: #0E253A;
-  --color-clean-navy-deep: #071524;
-  --color-clean-navy-muted: #2E4558;
-  --color-eco-green: #10B981;
-  --color-eco-green-light: #D1FAE5;
-  --color-cyan-mist: #0284C7;
-  --color-cyan-mist-light: #E0F2FE;
-  --color-lavender-dusk: #8B5CF6;
-  --color-lavender-light: #EDE9FE;
-  --color-blossom-rose: #EC4899;
-  --color-blossom-light: #FCE7F3;
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-canvas: #FAF8F4;
+  --color-canvas-pure: #FFFFFF;
+  --color-ink: #0B1B2B;
+  --color-ink-muted: #526071;
+  --color-ink-subtle: #8A97A6;
+  --color-night: #0B1B2B;
+  --color-night-card: #13273D;
+  
+  /* Scent Moods */
+  --color-alpine: #1E9BFF;
+  --color-alpine-ice: #DFF3FF;
+  --color-alpine-deep: #0369A1;
+  
+  --color-lavender: #8B5CF6;
+  --color-lavender-soft: #EEE7FF;
+  --color-lavender-deep: #6D28D9;
+  
+  --color-bloom: #FF4F9A;
+  --color-bloom-powder: #FFE6F0;
+  --color-bloom-deep: #BE185D;
+  
+  --color-mint: #10B981;
+  --color-mint-soft: #E6FBF2;
+
+  --font-display: var(--font-unbounded), sans-serif;
+  --font-sans: var(--font-onest), sans-serif;
 }
 
 :root {
-  --background: #FAFCFF;
-  --foreground: #0E253A;
+  --background: #FAF8F4;
+  --foreground: #0B1B2B;
+  --scent-accent: #1E9BFF;
+  --scent-soft: #DFF3FF;
+  --scent-glow: rgba(30, 155, 255, 0.22);
 }
 
 html {
@@ -30,82 +45,178 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-onest), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom aesthetic utility classes */
-.glass-header {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+/* Display Font Utility */
+.font-display {
+  font-family: var(--font-unbounded), sans-serif;
+  letter-spacing: -0.035em;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(241, 245, 249, 0.9);
-  box-shadow: 0 10px 30px -10px rgba(14, 37, 58, 0.06), 0 4px 6px -4px rgba(14, 37, 58, 0.03);
+/* Headings with personality */
+.hero-title {
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 6.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-weight: 800;
 }
 
-.glass-card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+.section-title {
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(2rem, 4.2vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  font-weight: 800;
 }
 
-.glass-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 35px -12px rgba(14, 37, 58, 0.12), 0 8px 16px -6px rgba(14, 37, 58, 0.06);
+.sub-headline {
+  font-family: var(--font-unbounded), sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
-.badge-shimmer {
-  position: relative;
-  overflow: hidden;
+/* Buttons Primitives */
+.btn-capsule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-family: var(--font-onest), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
 }
 
-.badge-shimmer::after {
-  content: "";
+.btn-capsule:hover {
+  transform: translateY(-2px);
+}
+
+.btn-capsule:active {
+  transform: translateY(0);
+}
+
+.btn-ink {
+  background-color: #0B1B2B;
+  color: #FAF8F4;
+}
+
+.btn-ink:hover {
+  background-color: #162E47;
+  box-shadow: 0 10px 25px -5px rgba(11, 27, 43, 0.25);
+}
+
+.btn-scent {
+  background-color: var(--scent-accent);
+  color: #FFFFFF;
+}
+
+.btn-scent:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 12px 28px -6px var(--scent-glow);
+}
+
+.btn-ghost-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-onest), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0B1B2B;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-ghost-arrow:hover {
+  gap: 0.85rem;
+  color: var(--scent-accent);
+}
+
+/* Minimal Floor Shadow for unboxed bottles */
+.bottle-floor-shadow {
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: rotate(30deg);
-  animation: shimmer 4s infinite;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(11, 27, 43, 0.28) 0%, rgba(11, 27, 43, 0.08) 45%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes shimmer {
+/* Subtle Floating Elements */
+@keyframes bubbleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(4deg);
+  }
+}
+
+@keyframes bubbleDrift {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-24px) translateX(10px);
+  }
+}
+
+.animate-float-slow {
+  animation: bubbleFloat 7s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: bubbleDrift 9s ease-in-out infinite;
+}
+
+/* Marquee ribbon for transitions */
+@keyframes marquee {
   0% {
-    transform: translateX(-100%) rotate(30deg);
+    transform: translateX(0%);
   }
-  20%, 100% {
-    transform: translateX(100%) rotate(30deg);
+  100% {
+    transform: translateX(-50%);
   }
 }
 
-.organic-gradient-hero {
-  background: radial-gradient(circle at 15% 20%, rgba(224, 242, 254, 0.7) 0%, transparent 45%),
-              radial-gradient(circle at 85% 30%, rgba(237, 233, 254, 0.5) 0%, transparent 40%),
-              radial-gradient(circle at 50% 85%, rgba(209, 250, 229, 0.4) 0%, transparent 50%),
-              #FAFCFF;
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
 }
 
-.text-gradient-navy {
-  background: linear-gradient(135deg, #071524 0%, #0E253A 50%, #1E3A8A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Smooth scent switch transitions */
+.scent-transition {
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile viewport fix */
+@supports (height: 100svh) {
+  .min-h-screen-svh {
+    min-height: 100svh;
+  }
 }

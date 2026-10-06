@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Unbounded, Onest } from "next/font/google";
 import "./globals.css";
 import SeoStructuredData from "@/components/SeoStructuredData";
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin", "cyrillic-ext"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-jakarta",
+const unbounded = Unbounded({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "700", "800", "900"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
+const onest = Onest({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-onest",
   display: "swap",
 });
 
@@ -14,7 +21,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0E253A",
+  themeColor: "#FAF8F4",
 };
 
 export const metadata: Metadata = {
@@ -90,8 +97,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col antialiased bg-[#FAFCFF] text-[#0E253A]">
+    <html lang="ru" className={`${unbounded.variable} ${onest.variable} scroll-smooth`}>
+      <body className="min-h-screen flex flex-col antialiased bg-[#FAF8F4] text-[#0B1B2B]">
         <SeoStructuredData />
         {children}
       </body>

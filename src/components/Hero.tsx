@@ -1,164 +1,309 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { Sparkles, ShieldCheck, Leaf, Flame, ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import { ArrowDown, Send, Sparkles } from "lucide-react";
+
+export interface ScentTheme {
+  id: "alpine" | "lavender" | "bloom";
+  name: string;
+  nameRu: string;
+  accent: string;
+  softBg: string;
+  subBg: string;
+  deep: string;
+  image: string;
+  notes: string;
+  telegramText: string;
+}
+
+export const SCENTS: ScentTheme[] = [
+  {
+    id: "alpine",
+    name: "Alpine Fresh",
+    nameRu: "Альпийская свежесть",
+    accent: "#1E9BFF",
+    softBg: "#DFF3FF",
+    subBg: "#EDF8FF",
+    deep: "#0369A1",
+    image: "/images/products/alpine-fresh-gel.jpg",
+    notes: "Ледниковый озон, горный бриз и чистота белого белья",
+    telegramText: "Здравствуйте! Хочу заказать гель PureLife Alpine Fresh 4 кг",
+  },
+  {
+    id: "lavender",
+    name: "Lavender Dream",
+    nameRu: "Лавандовый сон",
+    accent: "#8B5CF6",
+    softBg: "#EEE7FF",
+    subBg: "#F5F0FF",
+    deep: "#6D28D9",
+    image: "/images/products/lavender-dream-gel.jpg",
+    notes: "Прованская лаванда, вечерний уют и мягкость постели",
+    telegramText: "Здравствуйте! Хочу заказать гель PureLife Lavender Dream 4 кг",
+  },
+  {
+    id: "bloom",
+    name: "Floral Bloom",
+    nameRu: "Цветочное цветение",
+    accent: "#FF4F9A",
+    softBg: "#FFE6F0",
+    subBg: "#FFF2F7",
+    deep: "#BE185D",
+    image: "/images/products/floral-bloom-gel.jpg",
+    notes: "Магнолия, пион и защита цвета ярких вещей",
+    telegramText: "Здравствуйте! Хочу заказать гель PureLife Floral Bloom 4 кг",
+  },
+];
 
 interface HeroProps {
   onExploreProducts: () => void;
-  onOpenB2B: () => void;
 }
 
-export default function Hero({ onExploreProducts, onOpenB2B }: HeroProps) {
-  return (
-    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden organic-gradient-hero">
-      {/* Decorative ambient blurred orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-sky-200/40 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-5 w-[380px] h-[380px] bg-purple-200/30 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-10 w-[320px] h-[320px] bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -z-10" />
+export default function Hero({ onExploreProducts }: HeroProps) {
+  const { t } = useLanguage();
+  const [activeScent, setActiveScent] = useState<ScentTheme>(SCENTS[0]);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Value Proposition & Copy */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
-            {/* Tagline Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-sky-200/80 shadow-xs mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0284C7]">
-                Европейский стандарт чистоты • Формула 2026
+  const handleSelectScent = (scent: ScentTheme) => {
+    setActiveScent(scent);
+    if (typeof document !== "undefined") {
+      document.documentElement.style.setProperty("--scent-accent", scent.accent);
+      document.documentElement.style.setProperty("--scent-soft", scent.softBg);
+    }
+  };
+
+  const currentHeadlineAccent = t.hero.titlePart2[activeScent.id];
+
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen-svh flex flex-col justify-between pt-28 pb-12 sm:pt-36 sm:pb-16 overflow-hidden transition-colors duration-700"
+      style={{
+        backgroundColor: activeScent.subBg,
+      }}
+    >
+      {/* Dynamic ambient organic aura in background */}
+      <motion.div
+        key={activeScent.id + "-bg"}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[700px] sm:h-[950px] rounded-full pointer-events-none -z-10 blur-3xl opacity-75"
+        style={{
+          background: `radial-gradient(circle, ${activeScent.softBg} 0%, rgba(250,248,244,0) 70%)`,
+        }}
+      />
+
+      {/* Floating SVG bubbles/droplets with light animation */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-5">
+        <svg
+          className="absolute top-1/4 left-[8%] w-12 h-12 opacity-40 animate-float-slow"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <circle cx="50" cy="50" r="46" stroke={activeScent.accent} strokeWidth="3" fill="white" fillOpacity="0.3" />
+          <path d="M35 32 Q45 22 55 25" stroke="white" strokeWidth="5" strokeLinecap="round" />
+        </svg>
+
+        <svg
+          className="absolute top-2/3 left-[15%] w-8 h-8 opacity-35 animate-drift"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <circle cx="50" cy="50" r="45" stroke={activeScent.accent} strokeWidth="4" fill="white" fillOpacity="0.4" />
+        </svg>
+
+        <svg
+          className="absolute top-1/5 right-[12%] w-16 h-16 opacity-35 animate-float-slow"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <circle cx="50" cy="50" r="46" stroke={activeScent.accent} strokeWidth="3" fill="white" fillOpacity="0.3" />
+          <path d="M30 30 Q45 20 60 26" stroke="white" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+
+        <svg
+          className="absolute bottom-1/4 right-[8%] w-10 h-10 opacity-40 animate-drift"
+          viewBox="0 0 100 100"
+          fill="none"
+        >
+          <circle cx="50" cy="50" r="45" stroke={activeScent.accent} strokeWidth="4" fill="white" fillOpacity="0.4" />
+        </svg>
+      </div>
+
+      {/* Main Hero Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Left Column: Bold Editorial Copy */}
+          <div className="lg:col-span-7 flex flex-col items-start z-10 text-left">
+            
+            {/* Scent Mood Pill indicator */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200/60 shadow-xs mb-8 transition-colors duration-300">
+              <span
+                className="w-2.5 h-2.5 rounded-full transition-colors duration-500"
+                style={{ backgroundColor: activeScent.accent }}
+              />
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                {t.hero.badge}
               </span>
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-[#0E253A] leading-[1.12] mb-6">
-              Чистота нового поколения.{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284C7] via-[#0E253A] to-[#10B981]">
-                Свежесть, которая остается с вами.
-              </span>
+            {/* Giant Headline with Character */}
+            <h1 className="hero-title text-[#0B1B2B] mb-8">
+              {t.hero.titlePart1}{" "}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={activeScent.id + "-" + currentHeadlineAccent}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="inline-block italic transition-colors duration-500 underline decoration-wavy decoration-2"
+                  style={{
+                    color: activeScent.accent,
+                    textDecorationColor: `${activeScent.accent}40`,
+                  }}
+                >
+                  {currentHeadlineAccent}
+                </motion.span>
+              </AnimatePresence>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed mb-8 max-w-2xl">
-              Ультраконцентрированные гели для стирки <strong className="text-slate-800 font-semibold">PureLife 4&nbsp;кг</strong> и стиральные порошки с немецкими энзимами. Мгновенно расщепляют сложные загрязнения при 30°C, сохраняют цвет и защищают волокна ткани.
+            {/* Subtitle - Exactly one clear statement */}
+            <p className="text-lg sm:text-xl text-[#526071] font-normal leading-relaxed max-w-xl mb-10">
+              {t.hero.subtitle}
             </p>
 
-            {/* 3 Quick Trust Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full mb-10">
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/80 border border-slate-100 shadow-xs backdrop-blur-xs hover:border-emerald-200 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-                  <Leaf className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Биоразлагаемые ПАВ</div>
-                  <div className="text-[11px] text-slate-500">Безопасно для септиков</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/80 border border-slate-100 shadow-xs backdrop-blur-xs hover:border-sky-200 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-[#0284C7] shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Без агрессивного хлора</div>
-                  <div className="text-[11px] text-slate-500">Гипоаллергенный состав</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white/80 border border-slate-100 shadow-xs backdrop-blur-xs hover:border-purple-200 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
-                  <Flame className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-900">Высокая концентрация</div>
-                  <div className="text-[11px] text-slate-500">До 80 стирок в бутыли</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
+            {/* Primary Action Button */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
               <button
                 type="button"
-                id="hero-explore-button"
+                id="hero-choose-scent-btn"
                 onClick={onExploreProducts}
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-base text-white bg-gradient-to-r from-[#0284C7] to-[#0E253A] hover:from-[#0369A1] hover:to-[#071524] shadow-lg shadow-sky-600/25 hover:shadow-xl hover:shadow-sky-600/35 hover:-translate-y-0.5 transition-all duration-200"
+                className="btn-capsule btn-scent shadow-xl text-base px-9 py-4.5"
+                style={{
+                  backgroundColor: activeScent.accent,
+                }}
               >
-                <span>Смотреть продукцию</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>{t.hero.ctaChoose}</span>
+                <ArrowDown className="w-4 h-4" />
               </button>
 
-              <button
-                type="button"
-                id="hero-b2b-button"
-                onClick={onOpenB2B}
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-base text-[#0E253A] bg-white border border-slate-200/90 hover:bg-slate-50 hover:border-slate-300 shadow-sm transition-all duration-200"
+              <a
+                href={`https://t.me/purelife_uz?text=${encodeURIComponent(activeScent.telegramText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-capsule bg-white/90 hover:bg-white text-[#0B1B2B] border border-slate-200/80 shadow-xs text-base px-6 py-4.5 flex items-center justify-center gap-2"
               >
-                <span>Оптовое сотрудничество</span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-                  B2B
-                </span>
-              </button>
+                <Send className="w-4 h-4 text-[#1E9BFF]" />
+                <span>{t.hero.ctaTelegram}</span>
+              </a>
             </div>
 
-            {/* Social Proof Bar */}
-            <div className="mt-8 flex items-center gap-4 text-xs font-medium text-slate-500">
-              <div className="flex -space-x-2">
-                <div className="w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold text-[10px] border-2 border-white">PL</div>
-                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-[10px] border-2 border-white">ECO</div>
-                <div className="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-[10px] border-2 border-white">ISO</div>
-              </div>
-              <p>
-                Более <span className="font-bold text-slate-800">120 000+</span> семей уже выбрали PureLife в 2026 году
+            {/* Active Scent Notes Note */}
+            <div className="mt-8 pt-6 border-t border-slate-200/60 w-full max-w-lg flex items-center gap-3 text-sm text-[#526071]">
+              <Sparkles className="w-4 h-4 shrink-0" style={{ color: activeScent.accent }} />
+              <p className="line-clamp-1">
+                <span className="font-bold text-[#0B1B2B]">{activeScent.nameRu}:</span> {activeScent.notes}
               </p>
             </div>
           </div>
 
-          {/* Right Column: Hero Visual Product Packshot & Dynamic Badges */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Luminous background aura */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-sky-400/20 via-sky-200/30 to-purple-300/20 rounded-3xl blur-2xl -z-10 transform rotate-1 scale-105" />
+          {/* Right Column: Hero Unboxed Packshot & Sensory Scent Switcher */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative pt-4 lg:pt-0">
+            
+            {/* The Unboxed Packshot Stage */}
+            <div className="relative w-full max-w-md h-[420px] sm:h-[500px] flex items-center justify-center">
+              
+              {/* Natural Floor Shadow */}
+              <div className="bottle-floor-shadow" />
 
-            {/* Central Product Showcase Container */}
-            <div className="relative w-full max-w-md rounded-3xl p-4 bg-white/70 backdrop-blur-md border border-white/90 shadow-2xl shadow-sky-950/10">
-              <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden bg-gradient-to-b from-sky-50/50 to-white flex items-center justify-center">
-                <Image
-                  src="/images/products/alpine-fresh-gel.jpg"
-                  alt="Концентрированный гель для стирки PureLife Alpine Fresh 4 кг"
-                  fill
-                  priority
-                  fetchPriority="high"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
-                  className="object-contain p-2 hover:scale-105 transition-transform duration-500"
-                />
+              {/* Animate Packshot Crossfade */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeScent.id}
+                  initial={{ opacity: 0, scale: 0.94, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-full h-full flex items-center justify-center select-none"
+                >
+                  <Image
+                    src={activeScent.image}
+                    alt={`PureLife Liquid Gel 4 кг — ${activeScent.name}`}
+                    fill
+                    priority
+                    fetchPriority="high"
+                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 480px"
+                    className="object-contain drop-shadow-xl hover:scale-[1.02] transition-transform duration-500"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-                {/* Floating Badge Top Left */}
-                <div className="absolute top-4 left-4 glass-card rounded-2xl px-3.5 py-2.5 shadow-lg border border-white/80 flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-sky-500 text-white flex items-center justify-center font-black text-sm">
-                    4kg
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-slate-800">~80 циклов</div>
-                    <div className="text-[10px] text-slate-500 font-medium">Концентрат</div>
-                  </div>
-                </div>
-
-                {/* Floating Badge Bottom Right */}
-                <div className="absolute bottom-4 right-4 glass-card rounded-2xl px-3.5 py-2.5 shadow-lg border border-white/80 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                  <div>
-                    <div className="text-[11px] font-bold text-slate-800">100% выполаскивание</div>
-                    <div className="text-[10px] text-slate-500">Без белого налета</div>
-                  </div>
-                </div>
+            {/* Interactive Scent Switcher Bar */}
+            <div className="mt-6 w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl p-2 border border-slate-200/80 shadow-lg shadow-slate-900/5">
+              <div className="text-center text-xs font-bold text-slate-400 uppercase tracking-widest py-1.5">
+                {t.hero.switchLabel}
               </div>
-
-              {/* Bottom Caption Pill */}
-              <div className="mt-3.5 flex items-center justify-between px-2 text-xs">
-                <div className="font-semibold text-slate-700">Флагман: Alpine Fresh & Clean</div>
-                <div className="font-bold text-[#0284C7] bg-sky-50 px-2.5 py-1 rounded-full border border-sky-100">
-                  1 бутыль = 12 кг обычного порошка
-                </div>
+              <div className="grid grid-cols-3 gap-1.5">
+                {SCENTS.map((scent) => {
+                  const isSelected = activeScent.id === scent.id;
+                  return (
+                    <button
+                      key={scent.id}
+                      type="button"
+                      id={`scent-btn-${scent.id}`}
+                      onClick={() => handleSelectScent(scent)}
+                      className={`relative flex flex-col items-center justify-center py-2.5 px-2 rounded-2xl transition-all duration-300 cursor-pointer ${
+                        isSelected
+                          ? "bg-slate-900 text-white shadow-md"
+                          : "bg-slate-50 text-slate-700 hover:bg-slate-100"
+                      }`}
+                    >
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span
+                          className="w-3 h-3 rounded-full shrink-0"
+                          style={{ backgroundColor: scent.accent }}
+                        />
+                        <span className="text-xs font-extrabold truncate">
+                          {scent.name.split(" ")[0]}
+                        </span>
+                      </div>
+                      <span
+                        className={`text-[11px] truncate ${
+                          isSelected ? "text-slate-300" : "text-slate-400"
+                        }`}
+                      >
+                        {scent.name.split(" ")[1] || "Gel"}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
+
           </div>
+
+        </div>
+      </div>
+
+      {/* Subtle Marquee Strip at bottom of Hero */}
+      <div className="w-full mt-10 border-y border-slate-200/60 bg-white/60 backdrop-blur-xs py-3 overflow-hidden select-none">
+        <div className="animate-marquee whitespace-nowrap text-xs font-extrabold tracking-widest uppercase text-[#526071]">
+          {[1, 2, 3, 4].map((i) => (
+            <span key={i} className="mx-6 flex items-center gap-6">
+              {t.hero.marquee.map((item, idx) => (
+                <span key={idx} className="flex items-center gap-6">
+                  <span>{item}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                </span>
+              ))}
+            </span>
+          ))}
         </div>
       </div>
     </section>
