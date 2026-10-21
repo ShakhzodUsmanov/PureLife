@@ -18,6 +18,7 @@ export interface ProductItem {
   subtitle: string;
   format: string;
   image: string;
+  imageBack?: string;
   accentColor: string;
   auraGlow: string;
   badge: string;
@@ -48,7 +49,8 @@ export const PRODUCTS_GELS: ProductItem[] = [
     scentOrLine: "Alpine Fresh & Clean",
     subtitle: "Ультраконцентрированный гель для белых и светлых тканей",
     format: "Бутыль 4 кг с мерным колпачком и эргономичной ручкой",
-    image: "/images/products/alpine-fresh-gel.jpg",
+    image: "/images/products/bottle-blue-front.webp",
+    imageBack: "/images/products/bottle-blue-back.webp",
     accentColor: "#0284C7",
     auraGlow: "rgba(2, 132, 199, 0.22)",
     badge: "Флагман • 4 кг Концентрат",
@@ -85,7 +87,8 @@ export const PRODUCTS_GELS: ProductItem[] = [
     scentOrLine: "Lavender Dream",
     subtitle: "Ароматерапевтический гель для деликатных и постельных тканей",
     format: "Бутыль 4 кг с мерным колпачком и эргономичной ручкой",
-    image: "/images/products/lavender-dream-gel.jpg",
+    image: "/images/products/bottle-purple-front.webp",
+    imageBack: "/images/products/bottle-purple-back.webp",
     accentColor: "#8B5CF6",
     auraGlow: "rgba(139, 92, 246, 0.22)",
     badge: "Релакс-формула • 4 кг Концентрат",
@@ -122,7 +125,8 @@ export const PRODUCTS_GELS: ProductItem[] = [
     scentOrLine: "Floral Bloom",
     subtitle: "Защита цвета и нежный весенний шлейф для цветных тканей",
     format: "Бутыль 4 кг с мерным колпачком и эргономичной ручкой",
-    image: "/images/products/floral-bloom-gel.jpg",
+    image: "/images/products/bottle-pink-front.webp",
+    imageBack: "/images/products/bottle-pink-back.webp",
     accentColor: "#EC4899",
     auraGlow: "rgba(236, 72, 153, 0.22)",
     badge: "Color Protect • 4 кг Концентрат",

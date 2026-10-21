@@ -15,6 +15,7 @@ export interface ScentTheme {
   subBg: string;
   deep: string;
   image: string;
+  imageBack?: string;
   notes: string;
   telegramText: string;
 }
@@ -28,7 +29,8 @@ export const SCENTS: ScentTheme[] = [
     softBg: "#DFF3FF",
     subBg: "#EDF8FF",
     deep: "#0369A1",
-    image: "/images/products/alpine-fresh-gel.jpg",
+    image: "/images/products/bottle-blue-front.webp",
+    imageBack: "/images/products/bottle-blue-back.webp",
     notes: "Ледниковый озон, горный бриз и чистота белого белья",
     telegramText: "Здравствуйте! Хочу заказать гель PureLife Alpine Fresh 4 кг",
   },
@@ -40,7 +42,8 @@ export const SCENTS: ScentTheme[] = [
     softBg: "#EEE7FF",
     subBg: "#F5F0FF",
     deep: "#6D28D9",
-    image: "/images/products/lavender-dream-gel.jpg",
+    image: "/images/products/bottle-purple-front.webp",
+    imageBack: "/images/products/bottle-purple-back.webp",
     notes: "Прованская лаванда, вечерний уют и мягкость постели",
     telegramText: "Здравствуйте! Хочу заказать гель PureLife Lavender Dream 4 кг",
   },
@@ -52,7 +55,8 @@ export const SCENTS: ScentTheme[] = [
     softBg: "#FFE6F0",
     subBg: "#FFF2F7",
     deep: "#BE185D",
-    image: "/images/products/floral-bloom-gel.jpg",
+    image: "/images/products/bottle-pink-front.webp",
+    imageBack: "/images/products/bottle-pink-back.webp",
     notes: "Магнолия, пион и защита цвета ярких вещей",
     telegramText: "Здравствуйте! Хочу заказать гель PureLife Floral Bloom 4 кг",
   },
@@ -65,6 +69,7 @@ interface HeroProps {
 export default function Hero({ onExploreProducts }: HeroProps) {
   const { t } = useLanguage();
   const [activeScent, setActiveScent] = useState<ScentTheme>(SCENTS[0]);
+  const [viewSide, setViewSide] = useState<"front" | "back">("front");
 
   const handleSelectScent = (scent: ScentTheme) => {
     setActiveScent(scent);
@@ -221,19 +226,47 @@ export default function Hero({ onExploreProducts }: HeroProps) {
               {/* Natural Floor Shadow */}
               <div className="bottle-floor-shadow" />
 
+              {/* Dual-side view switcher badge */}
+              {activeScent.imageBack && (
+                <div className="absolute top-2 right-2 z-20 flex items-center bg-white/85 backdrop-blur-md rounded-full p-1 border border-slate-200/80 shadow-xs">
+                  <button
+                    type="button"
+                    onClick={() => setViewSide("front")}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      viewSide === "front"
+                        ? "bg-[#0B1B2B] text-white shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {t.products.viewFront}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewSide("back")}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      viewSide === "back"
+                        ? "bg-[#0B1B2B] text-white shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    {t.products.viewBack}
+                  </button>
+                </div>
+              )}
+
               {/* Animate Packshot Crossfade */}
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={activeScent.id}
+                  key={`${activeScent.id}-${viewSide}`}
                   initial={{ opacity: 0, scale: 0.94, y: 12 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96, y: -12 }}
-                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   className="relative w-full h-full flex items-center justify-center select-none"
                 >
                   <Image
-                    src={activeScent.image}
-                    alt={`PureLife Liquid Gel 4 кг — ${activeScent.name}`}
+                    src={viewSide === "back" && activeScent.imageBack ? activeScent.imageBack : activeScent.image}
+                    alt={`PureLife Liquid Gel 4 кг — ${activeScent.name} (${viewSide === "back" ? t.products.viewBack : t.products.viewFront})`}
                     fill
                     priority
                     fetchPriority="high"

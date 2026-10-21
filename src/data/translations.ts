@@ -33,6 +33,8 @@ export interface Translations {
     washesCount: string;
     tempActivation: string;
     packFormat: string;
+    viewFront: string;
+    viewBack: string;
   };
   why: {
     sectionTag: string;
@@ -130,6 +132,8 @@ export const DICTIONARY: Record<Language, Translations> = {
       washesCount: "стирок в канистре 4 кг",
       tempActivation: "температура активации",
       packFormat: "Формат упаковки:",
+      viewFront: "Спереди",
+      viewBack: "Сзади",
     },
     why: {
       sectionTag: "Честные факты",
@@ -247,6 +251,8 @@ export const DICTIONARY: Record<Language, Translations> = {
       washesCount: "4 kg idishda yuvish soni",
       tempActivation: "faollashuv harorati",
       packFormat: "Qadoq hajmi:",
+      viewFront: "Oldi tomoni",
+      viewBack: "Orqa tomoni",
     },
     why: {
       sectionTag: "Aniq dalillar",
@@ -364,6 +370,8 @@ export const DICTIONARY: Record<Language, Translations> = {
       washesCount: "washes in a 4kg jug",
       tempActivation: "activation temperature",
       packFormat: "Package size:",
+      viewFront: "Front",
+      viewBack: "Back",
     },
     why: {
       sectionTag: "Pure Facts",

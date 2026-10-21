@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/products/alpine-fresh-gel.jpg",
+        url: "/images/products/bottle-blue-front.webp",
         width: 1200,
         height: 630,
         alt: "PureLife Liquid Laundry Gel 4kg",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PureLife — Ультраконцентрированные гели и стиральные порошки",
     description: "Формула чистоты нового поколения. До 80 стирок в одной бутылке.",
-    images: ["/images/products/alpine-fresh-gel.jpg"],
+    images: ["/images/products/bottle-blue-front.webp"],
   },
   robots: {
     index: true,

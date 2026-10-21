@@ -8,7 +8,7 @@ export default function SeoStructuredData() {
     "name": "PureLife Care Tech",
     "legalName": "OOO 'PureLife Care Tech'",
     "url": "https://purelife-care.com",
-    "logo": "https://purelife-care.com/images/products/alpine-fresh-gel.jpg",
+    "logo": "https://purelife-care.com/images/products/bottle-blue-front.webp",
     "description": "Производитель ультраконцентрированных гелей для стирки 4 кг и эффективных стиральных порошков с энзимами нового поколения.",
     "email": "b2b@purelife-care.com",
     "telephone": "+998 71 200 44 88",

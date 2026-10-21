@@ -16,6 +16,7 @@ export default function ProductShowcase({}: ProductShowcaseProps) {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"gels" | "powders">("gels");
   const [selectedProductDetails, setSelectedProductDetails] = useState<ProductItem | null>(null);
+  const [gelSides, setGelSides] = useState<Record<string, "front" | "back">>({});
 
   // Selected weight for powders
   const [powderWeights, setPowderWeights] = useState<Record<string, string>>({
@@ -178,21 +179,64 @@ export default function ProductShowcase({}: ProductShowcaseProps) {
 
                     {/* Packshot Column */}
                     <div
-                      className={`lg:col-span-5 relative flex items-center justify-center ${
+                      className={`lg:col-span-5 relative flex flex-col items-center justify-center ${
                         isEven ? "lg:order-1" : "lg:order-2"
                       }`}
                     >
                       <div className="relative w-full max-w-[340px] sm:max-w-[400px] h-[380px] sm:h-[460px] flex items-center justify-center">
                         <div className="bottle-floor-shadow" />
 
-                        <Image
-                          src={gel.image}
-                          alt={`${gel.name} — ${gel.scentOrLine}`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 450px"
-                          className="object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500 select-none"
-                        />
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={`${gel.id}-${gelSides[gel.id] || "front"}`}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.25 }}
+                            className="relative w-full h-full flex items-center justify-center select-none"
+                          >
+                            <Image
+                              src={
+                                (gelSides[gel.id] === "back" && gel.imageBack)
+                                  ? gel.imageBack
+                                  : gel.image
+                              }
+                              alt={`${gel.name} — ${gel.scentOrLine} (${(gelSides[gel.id] === "back") ? t.products.viewBack : t.products.viewFront})`}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 450px"
+                              className="object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500 select-none"
+                            />
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
+
+                      {/* Front / Back Toggle Buttons */}
+                      {gel.imageBack && (
+                        <div className="mt-3 z-10 inline-flex items-center bg-white/90 backdrop-blur-md rounded-full p-1 border border-black/5 shadow-xs">
+                          <button
+                            type="button"
+                            onClick={() => setGelSides((prev) => ({ ...prev, [gel.id]: "front" }))}
+                            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                              (gelSides[gel.id] || "front") === "front"
+                                ? "bg-[#0B1B2B] text-white shadow-xs"
+                                : "text-slate-600 hover:text-slate-900"
+                            }`}
+                          >
+                            {t.products.viewFront}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setGelSides((prev) => ({ ...prev, [gel.id]: "back" }))}
+                            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                              gelSides[gel.id] === "back"
+                                ? "bg-[#0B1B2B] text-white shadow-xs"
+                                : "text-slate-600 hover:text-slate-900"
+                            }`}
+                          >
+                            {t.products.viewBack}
+                          </button>
+                        </div>
+                      )}
                     </div>
 
                   </div>
