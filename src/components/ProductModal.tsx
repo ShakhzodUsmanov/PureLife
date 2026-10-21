@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { ProductItem } from "@/data/products";
-import { X, Check, ShieldAlert, Sparkles, Thermometer, Info, Beaker } from "lucide-react";
+import { X, Check, Sparkles, Thermometer, Info, Beaker } from "lucide-react";
 
 interface ProductModalProps {
   product: ProductItem | null;

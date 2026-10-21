@@ -1,24 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
-import SmoothScroll from "@/components/SmoothScroll";
+import { useState, lazy, Suspense } from "react";
+import { LanguageProvider } from "@/context/LanguageContext";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import GelsSection from "@/components/GelsSection";
-import TechnologySection from "@/components/TechnologySection";
-import PowdersSection from "@/components/PowdersSection";
-import B2BSection from "@/components/B2BSection";
-import FaqSection from "@/components/FaqSection";
-import Footer from "@/components/Footer";
-import CompositionModal from "@/components/CompositionModal";
-import ProductModal from "@/components/ProductModal";
-import OrderModal from "@/components/OrderModal";
 import { ProductItem, PRODUCTS_GELS } from "@/data/products";
 import { Send, Phone } from "lucide-react";
 
+// Lazy-load below-the-fold sections to reduce initial JS bundle
+const TechnologySection = lazy(() => import("@/components/TechnologySection"));
+const PowdersSection = lazy(() => import("@/components/PowdersSection"));
+const B2BSection = lazy(() => import("@/components/B2BSection"));
+const FaqSection = lazy(() => import("@/components/FaqSection"));
+const Footer = lazy(() => import("@/components/Footer"));
+const CompositionModal = lazy(() => import("@/components/CompositionModal"));
+const ProductModal = lazy(() => import("@/components/ProductModal"));
+const OrderModal = lazy(() => import("@/components/OrderModal"));
+
+function SectionFallback() {
+  return <div className="py-24 sm:py-32" aria-hidden="true" />;
+}
+
 function PageContent() {
-  const { t } = useLanguage();
   const [quickViewProduct, setQuickViewProduct] = useState<ProductItem | null>(null);
   const [compositionProduct, setCompositionProduct] = useState<ProductItem | null>(null);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
@@ -40,8 +44,6 @@ function PageContent() {
 
   return (
     <main className="min-h-screen flex flex-col bg-[#FAF8F4] text-[#0B1B2B] selection:bg-[#1E9BFF]/20 selection:text-[#0B1B2B]">
-      <SmoothScroll />
-
       {/* Sticky Header with Dynamic Lang Switcher */}
       <Header onOpenOrderModal={() => handleOpenOrder()} />
 
@@ -51,32 +53,54 @@ function PageContent() {
       />
 
       {/* Dedicated Gels Section */}
-      <GelsSection
-        onSelectComposition={(prod) => setCompositionProduct(prod)}
-      />
+      <div className="content-visibility-auto">
+        <GelsSection
+          onSelectComposition={(prod) => setCompositionProduct(prod)}
+        />
+      </div>
 
-      {/* Why PureLife 3-point Section */}
-      <TechnologySection />
+      {/* Below-fold sections: lazy loaded with content-visibility */}
+      <div className="content-visibility-auto">
+        <Suspense fallback={<SectionFallback />}>
+          <TechnologySection />
+        </Suspense>
+      </div>
 
-      {/* Dedicated Powders Section */}
-      <PowdersSection
-        onSelectComposition={(prod) => setCompositionProduct(prod)}
-      />
+      <div className="content-visibility-auto">
+        <Suspense fallback={<SectionFallback />}>
+          <PowdersSection
+            onSelectComposition={(prod) => setCompositionProduct(prod)}
+          />
+        </Suspense>
+      </div>
 
-      {/* B2B Wholesale Partnership Section */}
-      <B2BSection />
+      <div className="content-visibility-auto">
+        <Suspense fallback={<SectionFallback />}>
+          <B2BSection />
+        </Suspense>
+      </div>
 
-      {/* FAQ Accordion Section */}
-      <FaqSection />
+      <div className="content-visibility-auto">
+        <Suspense fallback={<SectionFallback />}>
+          <FaqSection />
+        </Suspense>
+      </div>
 
-      {/* Footer */}
-      <Footer />
+      <div className="content-visibility-auto">
+        <Suspense fallback={<SectionFallback />}>
+          <Footer />
+        </Suspense>
+      </div>
 
       {/* Shared Composition & Dosage Modal */}
-      <CompositionModal
-        product={compositionProduct}
-        onClose={() => setCompositionProduct(null)}
-      />
+      <Suspense fallback={null}>
+        {compositionProduct && (
+          <CompositionModal
+            product={compositionProduct}
+            onClose={() => setCompositionProduct(null)}
+          />
+        )}
+      </Suspense>
 
       {/* Sticky Floating Mobile Quick-Order Bar */}
       <div className="fixed bottom-4 left-4 right-4 z-40 sm:hidden">
@@ -101,18 +125,22 @@ function PageContent() {
       </div>
 
       {/* Quick View / Order Modals (Retained for fallback) */}
-      <ProductModal
-        product={quickViewProduct}
-        onClose={() => setQuickViewProduct(null)}
-        onOrder={(prod) => handleOpenOrder(prod)}
-      />
+      <Suspense fallback={null}>
+        <ProductModal
+          product={quickViewProduct}
+          onClose={() => setQuickViewProduct(null)}
+          onOrder={(prod) => handleOpenOrder(prod)}
+        />
+      </Suspense>
 
-      <OrderModal
-        isOpen={orderModalOpen}
-        product={orderProduct}
-        selectedWeight={orderSelectedWeight}
-        onClose={() => setOrderModalOpen(false)}
-      />
+      <Suspense fallback={null}>
+        <OrderModal
+          isOpen={orderModalOpen}
+          product={orderProduct}
+          selectedWeight={orderSelectedWeight}
+          onClose={() => setOrderModalOpen(false)}
+        />
+      </Suspense>
     </main>
   );
 }

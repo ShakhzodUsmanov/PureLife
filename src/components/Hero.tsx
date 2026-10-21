@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -71,6 +71,30 @@ export default function Hero({ onExploreProducts }: HeroProps) {
   const [activeScent, setActiveScent] = useState<ScentTheme>(SCENTS[0]);
   const [viewSide, setViewSide] = useState<"front" | "back">("front");
 
+  // Idle preload remaining scent bottles so switching scents is instant and doesn't compete with LCP
+  useEffect(() => {
+    const preloadOtherScents = () => {
+      SCENTS.forEach((scent) => {
+        if (scent.image) {
+          const img = new window.Image();
+          img.src = scent.image;
+        }
+        if (scent.imageBack) {
+          const imgBack = new window.Image();
+          imgBack.src = scent.imageBack;
+        }
+      });
+    };
+
+    if (typeof window !== "undefined") {
+      if ("requestIdleCallback" in window) {
+        (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(preloadOtherScents);
+      } else {
+        setTimeout(preloadOtherScents, 2000);
+      }
+    }
+  }, []);
+
   const handleSelectScent = (scent: ScentTheme) => {
     setActiveScent(scent);
     if (typeof document !== "undefined") {
@@ -92,9 +116,9 @@ export default function Hero({ onExploreProducts }: HeroProps) {
       {/* Dynamic ambient organic aura in background */}
       <motion.div
         key={activeScent.id + "-bg"}
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={false}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[700px] sm:h-[950px] rounded-full pointer-events-none -z-10 blur-3xl opacity-75"
         style={{
           background: `radial-gradient(circle, ${activeScent.softBg} 0%, rgba(250,248,244,0) 70%)`,
@@ -159,7 +183,7 @@ export default function Hero({ onExploreProducts }: HeroProps) {
             {/* Giant Headline with Character */}
             <h1 className="hero-title text-[#0B1B2B] mb-8">
               {t.hero.titlePart1}{" "}
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                   key={activeScent.id + "-" + currentHeadlineAccent}
                   initial={{ opacity: 0, y: 15 }}
@@ -255,7 +279,7 @@ export default function Hero({ onExploreProducts }: HeroProps) {
               )}
 
               {/* Animate Packshot Crossfade */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={`${activeScent.id}-${viewSide}`}
                   initial={{ opacity: 0, scale: 0.94, y: 12 }}
@@ -270,7 +294,8 @@ export default function Hero({ onExploreProducts }: HeroProps) {
                     fill
                     priority
                     fetchPriority="high"
-                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 480px"
+                    quality={80}
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 460px"
                     className="object-contain drop-shadow-xl hover:scale-[1.02] transition-transform duration-500"
                   />
                 </motion.div>

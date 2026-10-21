@@ -181,10 +181,14 @@ body {
 
 .animate-float-slow {
   animation: bubbleFloat 7s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .animate-drift {
   animation: bubbleDrift 9s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* Marquee ribbon for transitions */
@@ -201,10 +205,18 @@ body {
   display: flex;
   width: max-content;
   animation: marquee 28s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Content visibility utility to skip rendering work for below-the-fold content */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 650px;
 }
 
 /* Smooth scent switch transitions */

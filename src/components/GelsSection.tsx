@@ -151,7 +151,7 @@ export default function GelsSection({ onSelectComposition }: GelsSectionProps) {
                     <div className="relative w-full max-w-[340px] sm:max-w-[400px] h-[380px] sm:h-[460px] flex items-center justify-center">
                       <div className="bottle-floor-shadow" />
 
-                      <AnimatePresence mode="wait">
+                      <AnimatePresence mode="wait" initial={false}>
                         <motion.div
                           key={`${gel.id}-${currentSide}`}
                           initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +168,8 @@ export default function GelsSection({ onSelectComposition }: GelsSectionProps) {
                                 : t.gels?.viewFront || t.products?.viewFront || "Спереди"
                             })`}
                             fill
-                            sizes="(max-width: 768px) 100vw, 450px"
+                            quality={80}
+                            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 400px"
                             className="object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500 select-none"
                           />
                         </motion.div>

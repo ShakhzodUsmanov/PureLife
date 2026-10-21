@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { Language } from "@/data/translations";
 import { Send, Menu, X, Phone } from "lucide-react";
 
 interface HeaderProps {

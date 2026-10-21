@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { ProductItem } from "@/data/products";
 import { X, CheckCircle2, ShoppingBag, Send, ShieldCheck } from "lucide-react";
@@ -25,12 +25,12 @@ export default function OrderModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      setIsSuccess(false);
-      setQuantity(1);
-    }
-  }, [isOpen, product]);
+  const [prevProduct, setPrevProduct] = useState(product);
+  if (product !== prevProduct) {
+    setPrevProduct(product);
+    setIsSuccess(false);
+    setQuantity(1);
+  }
 
   if (!isOpen) return null;
 

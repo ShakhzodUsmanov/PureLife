@@ -1,4 +1,3 @@
-import Script from "next/script";
 import { ALL_PRODUCTS } from "@/data/products";
 
 export default function SeoStructuredData() {
@@ -100,29 +99,16 @@ export default function SeoStructuredData() {
     ],
   };
 
+  const allSchemas = [
+    organizationSchema,
+    faqSchema,
+    ...productSchemas,
+  ];
+
   return (
-    <>
-      <Script
-        id="schema-org-organization"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <Script
-        id="schema-org-faq"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      {productSchemas.map((schema, idx) => (
-        <Script
-          key={idx}
-          id={`schema-org-product-${idx}`}
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(allSchemas) }}
+    />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { Send, Phone, CheckCircle2, FileText } from "lucide-react";
+import { Send, Phone, CheckCircle2 } from "lucide-react";
 
 export default function B2BSection() {
   const { t } = useLanguage();

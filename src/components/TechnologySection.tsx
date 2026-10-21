@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { Sparkles, ThermometerSnowflake, Droplets, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 export default function TechnologySection() {
   const { t } = useLanguage();

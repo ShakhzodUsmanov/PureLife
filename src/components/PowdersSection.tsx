@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -19,6 +19,28 @@ export default function PowdersSection({ onSelectComposition }: PowdersSectionPr
     "powder-new-line": "1 кг",
     "powder-classic": "900 г",
   });
+
+  // Idle prefetch powder package variations
+  useEffect(() => {
+    const preloadPowders = () => {
+      PRODUCTS_POWDERS.forEach((powder) => {
+        powder.weightOptions?.forEach((opt) => {
+          if (opt.image) {
+            const img = new window.Image();
+            img.src = opt.image;
+          }
+        });
+      });
+    };
+
+    if (typeof window !== "undefined") {
+      if ("requestIdleCallback" in window) {
+        (window as unknown as { requestIdleCallback: (cb: () => void) => void }).requestIdleCallback(preloadPowders);
+      } else {
+        setTimeout(preloadPowders, 2500);
+      }
+    }
+  }, []);
 
   const getTelegramLink = (product: ProductItem, weight?: string) => {
     const text = `Здравствуйте! Хочу заказать ${product.name} (${product.scentOrLine})${
@@ -175,7 +197,7 @@ export default function PowdersSection({ onSelectComposition }: PowdersSectionPr
                   >
                     <div className="relative w-full max-w-[340px] sm:max-w-[380px] h-[380px] sm:h-[460px] flex items-center justify-center">
                       <div className="bottle-floor-shadow" />
-                      <AnimatePresence mode="wait">
+                      <AnimatePresence mode="wait" initial={false}>
                         <motion.div
                           key={`${powder.id}-${currentWeight}`}
                           initial={{ opacity: 0, scale: 0.95 }}
@@ -188,7 +210,8 @@ export default function PowdersSection({ onSelectComposition }: PowdersSectionPr
                             src={activeImage}
                             alt={`${powder.name} — Стиральный порошок ${currentWeight}`}
                             fill
-                            sizes="(max-width: 768px) 100vw, 420px"
+                            quality={80}
+                            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 380px"
                             className="object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500 select-none"
                           />
                         </motion.div>

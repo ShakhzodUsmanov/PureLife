@@ -5,14 +5,14 @@ import SeoStructuredData from "@/components/SeoStructuredData";
 
 const unbounded = Unbounded({
   subsets: ["latin", "cyrillic"],
-  weight: ["500", "700", "800", "900"],
+  weight: ["700", "800"],
   variable: "--font-unbounded",
   display: "swap",
 });
 
 const onest = Onest({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-onest",
   display: "swap",
 });
