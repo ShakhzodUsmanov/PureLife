@@ -10,10 +10,10 @@ export default function Footer() {
   return (
     <footer className="bg-[#0B1B2B] text-white pt-20 pb-16 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Main Footer Row */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-12 pb-16 border-b border-white/10">
-          
+
           {/* Brand Col */}
           <div className="max-w-md">
             <Link href="/" className="inline-block mb-4">
@@ -38,8 +38,13 @@ export default function Footer() {
               </div>
               <ul className="space-y-3 text-base font-semibold text-slate-300">
                 <li>
-                  <a href="#products" className="hover:text-white transition-colors">
-                    {t.nav.products}
+                  <a href="#gels" className="hover:text-white transition-colors">
+                    {t.nav.gels}
+                  </a>
+                </li>
+                <li>
+                  <a href="#powders" className="hover:text-white transition-colors">
+                    {t.nav.powders}
                   </a>
                 </li>
                 <li>
@@ -48,13 +53,13 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#calculator" className="hover:text-white transition-colors">
-                    {t.nav.calculator}
+                  <a href="#b2b" className="hover:text-white transition-colors">
+                    {t.nav.b2b}
                   </a>
                 </li>
                 <li>
-                  <a href="#b2b" className="hover:text-white transition-colors">
-                    {t.nav.b2b}
+                  <a href="#faq" className="hover:text-white transition-colors">
+                    {t.nav.faq}
                   </a>
                 </li>
               </ul>
@@ -77,11 +82,11 @@ export default function Footer() {
                 </a>
 
                 <a
-                  href="tel:+998712004488"
+                  href="tel:+998990881155"
                   className="flex items-center gap-2 text-base font-bold text-slate-300 hover:text-white transition-colors"
                 >
                   <Phone className="w-4 h-4 text-[#1E9BFF]" />
-                  <span>+998 (71) 200-44-88</span>
+                  <span>+998 (99) 088-11-55</span>
                 </a>
               </div>
             </div>

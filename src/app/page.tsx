@@ -5,12 +5,13 @@ import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ProductShowcase from "@/components/ProductShowcase";
+import GelsSection from "@/components/GelsSection";
 import TechnologySection from "@/components/TechnologySection";
-import SavingsCalculator from "@/components/SavingsCalculator";
+import PowdersSection from "@/components/PowdersSection";
 import B2BSection from "@/components/B2BSection";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
+import CompositionModal from "@/components/CompositionModal";
 import ProductModal from "@/components/ProductModal";
 import OrderModal from "@/components/OrderModal";
 import { ProductItem, PRODUCTS_GELS } from "@/data/products";
@@ -19,6 +20,7 @@ import { Send, Phone } from "lucide-react";
 function PageContent() {
   const { t } = useLanguage();
   const [quickViewProduct, setQuickViewProduct] = useState<ProductItem | null>(null);
+  const [compositionProduct, setCompositionProduct] = useState<ProductItem | null>(null);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
   const [orderProduct, setOrderProduct] = useState<ProductItem | null>(null);
   const [orderSelectedWeight, setOrderSelectedWeight] = useState<string | undefined>(undefined);
@@ -45,21 +47,20 @@ function PageContent() {
 
       {/* Re-imagined Hero Section */}
       <Hero
-        onExploreProducts={() => handleScrollToSection("products")}
+        onExploreProducts={() => handleScrollToSection("gels")}
       />
 
-      {/* Sensory Product Showcase */}
-      <ProductShowcase
-        onQuickView={(prod) => setQuickViewProduct(prod)}
-        onOrder={(prod, weight) => handleOpenOrder(prod, weight)}
+      {/* Dedicated Gels Section */}
+      <GelsSection
+        onSelectComposition={(prod) => setCompositionProduct(prod)}
       />
 
       {/* Why PureLife 3-point Section */}
       <TechnologySection />
 
-      {/* Interactive Dosage & Duration Calculator */}
-      <SavingsCalculator
-        onOrderRecommended={(prod) => handleOpenOrder(prod)}
+      {/* Dedicated Powders Section */}
+      <PowdersSection
+        onSelectComposition={(prod) => setCompositionProduct(prod)}
       />
 
       {/* B2B Wholesale Partnership Section */}
@@ -70,6 +71,12 @@ function PageContent() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Shared Composition & Dosage Modal */}
+      <CompositionModal
+        product={compositionProduct}
+        onClose={() => setCompositionProduct(null)}
+      />
 
       {/* Sticky Floating Mobile Quick-Order Bar */}
       <div className="fixed bottom-4 left-4 right-4 z-40 sm:hidden">
@@ -84,7 +91,7 @@ function PageContent() {
             <span>Заказать в Telegram</span>
           </a>
           <a
-            href="tel:+998712004488"
+            href="tel:+998990881155"
             className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white shrink-0 transition-colors"
             aria-label="Позвонить в PureLife"
           >
@@ -93,7 +100,7 @@ function PageContent() {
         </div>
       </div>
 
-      {/* Quick View / Order Modals (Retained for seamless fallback) */}
+      {/* Quick View / Order Modals (Retained for fallback) */}
       <ProductModal
         product={quickViewProduct}
         onClose={() => setQuickViewProduct(null)}

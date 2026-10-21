@@ -18,7 +18,7 @@ export default function B2BSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mb-16 sm:mb-20">
-          
+
           <div className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#1E9BFF] mb-4">
             {t.b2b.sectionTag}
           </div>
@@ -79,7 +79,7 @@ export default function B2BSection() {
           </a>
 
           <a
-            href="tel:+998712004488"
+            href="tel:+998990881155"
             className="btn-capsule bg-white/10 hover:bg-white/15 text-white border border-white/20 text-base px-8 py-4.5 flex items-center justify-center gap-2.5"
           >
             <Phone className="w-4 h-4 text-[#1E9BFF]" />

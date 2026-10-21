@@ -2,9 +2,11 @@ export type Language = "RU" | "UZ" | "EN";
 
 export interface Translations {
   nav: {
-    products: string;
+    gels: string;
+    powders: string;
+    products?: string;
     why: string;
-    calculator: string;
+    calculator?: string;
     b2b: string;
     faq: string;
     telegramBtn: string;
@@ -22,6 +24,30 @@ export interface Translations {
     ctaTelegram: string;
     switchLabel: string;
     marquee: string[];
+  };
+  gels: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    orderTelegram: string;
+    compositionBtn: string;
+    washesCount: string;
+    tempActivation: string;
+    viewFront: string;
+    viewBack: string;
+  };
+  powders: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    orderTelegram: string;
+    compositionBtn: string;
+    packFormat: string;
+    orderWeightTelegram: string;
+    tempRange: string;
+    tempLabel: string;
+    chlorineFree: string;
+    chlorineLabel: string;
   };
   products: {
     sectionTag: string;
@@ -94,6 +120,8 @@ export interface Translations {
 export const DICTIONARY: Record<Language, Translations> = {
   RU: {
     nav: {
+      gels: "Гели 4 кг",
+      powders: "Порошки",
       products: "Продукция",
       why: "Почему PureLife",
       calculator: "Калькулятор",
@@ -121,6 +149,30 @@ export const DICTIONARY: Record<Language, Translations> = {
         "Стирка от 30°C",
         "До 80 стирок в 4 кг",
       ],
+    },
+    gels: {
+      sectionTag: "Коллекция гелей • PureLife Liquid Gel",
+      title: "Ультраконцентрированные гели для стирки 4 кг",
+      subtitle: "Чистота, созданная для уюта и мягкости. До 80 стирок в одной бутыли с защитой волокон от 30°C.",
+      orderTelegram: "Заказать в Telegram",
+      compositionBtn: "Состав и дозировка",
+      washesCount: "стирок в бутыли 4 кг",
+      tempActivation: "температура активации",
+      viewFront: "Спереди",
+      viewBack: "Сзади",
+    },
+    powders: {
+      sectionTag: "Линейка порошков • PureLife Powder",
+      title: "Стиральные порошки PureLife с активными гранулами",
+      subtitle: "Специальная грануляция Activ Granules для быстрого расщепления сложных пятен, сияющей белизны и защиты цвета.",
+      orderTelegram: "Заказать в Telegram",
+      compositionBtn: "Состав и дозировка",
+      packFormat: "Формат упаковки:",
+      orderWeightTelegram: "Заказать {weight} в Telegram",
+      tempRange: "30°C–90°C",
+      tempLabel: "температурный диапазон",
+      chlorineFree: "0%",
+      chlorineLabel: "хлора и токсичных примесей",
     },
     products: {
       sectionTag: "Каталог средств PureLife",
@@ -176,7 +228,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       point2: "Постоянный складской запас готовой продукции, отгрузка от 24 часов",
       point3: "Сертифицированная продукция, работа по договору и официальный ЭДО",
       btnTelegram: "Написать в Telegram оптовому отделу",
-      btnCall: "+998 (71) 200-44-88",
+      btnCall: "+998 (99) 088-11-55",
     },
     faq: {
       sectionTag: "Вопросы и ответы",
@@ -201,7 +253,7 @@ export const DICTIONARY: Record<Language, Translations> = {
         },
         {
           q: "Как оформить оптовый заказ для магазина или сети?",
-          a: "Свяжитесь с нами напрямую через Telegram @purelife_uz или по телефону +998 (71) 200-44-88. Менеджер предоставит оптовый прайс-лист и согласует доставку.",
+          a: "Свяжитесь с нами напрямую через Telegram @purelife_uz или по телефону +998 (99) 088-11-55. Менеджер предоставит оптовый прайс-лист и согласует доставку.",
         },
       ],
     },
@@ -213,6 +265,8 @@ export const DICTIONARY: Record<Language, Translations> = {
   },
   UZ: {
     nav: {
+      gels: "Gellar 4 kg",
+      powders: "Kukunlar",
       products: "Mahsulotlar",
       why: "Nega PureLife",
       calculator: "Kalkulyator",
@@ -240,6 +294,30 @@ export const DICTIONARY: Record<Language, Translations> = {
         "30°C dan boshlab yuvish",
         "4 kg da 80 martagacha yuvish",
       ],
+    },
+    gels: {
+      sectionTag: "Flagman gellar • PureLife Liquid Gel",
+      title: "PureLife Liquid Gel 4 kg kir yuvish gellari",
+      subtitle: "Tozalik va shinamlik uchun yaratilgan. Bitta idishda 80 martagacha yuvish va 30°C dan mato himoyasi.",
+      orderTelegram: "Telegramda buyurtma berish",
+      compositionBtn: "Tarkibi va me'yori",
+      washesCount: "4 kg idishda yuvish soni",
+      tempActivation: "faollashuv harorati",
+      viewFront: "Oldi tomoni",
+      viewBack: "Orqa tomoni",
+    },
+    powders: {
+      sectionTag: "Kir yuvish kukunlari • PureLife Powder",
+      title: "PureLife Powder faol granulali kir yuvish kukunlari",
+      subtitle: "O'jar dog'larni tez parchalash va ranglarni asrash uchun Activ Granules maxsus granulatsiyasi.",
+      orderTelegram: "Telegramda buyurtma berish",
+      compositionBtn: "Tarkibi va me'yori",
+      packFormat: "Qadoq hajmi:",
+      orderWeightTelegram: "Telegramda {weight} buyurtma berish",
+      tempRange: "30°C–90°C",
+      tempLabel: "harorat diapazoni",
+      chlorineFree: "0%",
+      chlorineLabel: "xlor va zaharli moddalar",
     },
     products: {
       sectionTag: "PureLife mahsulotlar katalogi",
@@ -295,7 +373,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       point2: "Doimiy ombor zaxirasi va 24 soat ichida yuklash",
       point3: "Sertifikatlangan mahsulot va rasmiy shartnoma",
       btnTelegram: "Ulgurji bo'limga Telegramda yozish",
-      btnCall: "+998 (71) 200-44-88",
+      btnCall: "+998 (99) 088-11-55",
     },
     faq: {
       sectionTag: "Ko'p beriladigan savollar",
@@ -320,7 +398,7 @@ export const DICTIONARY: Record<Language, Translations> = {
         },
         {
           q: "Ulgurji buyurtma qanday beriladi?",
-          a: "Biz bilan to'g'ridan-to'g'ri Telegram @purelife_uz yoki +998 (71) 200-44-88 orqali bog'laning.",
+          a: "Biz bilan to'g'ridan-to'g'ri Telegram @purelife_uz yoki +998 (99) 088-11-55 orqali bog'laning.",
         },
       ],
     },
@@ -332,6 +410,8 @@ export const DICTIONARY: Record<Language, Translations> = {
   },
   EN: {
     nav: {
+      gels: "Liquid Gels 4kg",
+      powders: "Powders",
       products: "Products",
       why: "Why PureLife",
       calculator: "Calculator",
@@ -359,6 +439,30 @@ export const DICTIONARY: Record<Language, Translations> = {
         "Active from 30°C",
         "Up to 80 washes per 4kg",
       ],
+    },
+    gels: {
+      sectionTag: "Gel Collection • PureLife Liquid Gel",
+      title: "Ultra-Concentrated Laundry Gels 4kg",
+      subtitle: "Care designed for purity and lasting comfort. Up to 80 washes per jug with fiber protection from 30°C.",
+      orderTelegram: "Order in Telegram",
+      compositionBtn: "Formula & Dosage",
+      washesCount: "washes in a 4kg jug",
+      tempActivation: "activation temperature",
+      viewFront: "Front",
+      viewBack: "Back",
+    },
+    powders: {
+      sectionTag: "Powder Range • PureLife Powder",
+      title: "PureLife Laundry Powders with Active Granules",
+      subtitle: "Engineered with Activ Granules for fast stain breakdown, bright whites, and family fabric care.",
+      orderTelegram: "Order in Telegram",
+      compositionBtn: "Formula & Dosage",
+      packFormat: "Package size:",
+      orderWeightTelegram: "Order {weight} via Telegram",
+      tempRange: "30°C–90°C",
+      tempLabel: "temperature range",
+      chlorineFree: "0%",
+      chlorineLabel: "chlorine & toxic fillers",
     },
     products: {
       sectionTag: "PureLife Product Lineup",
@@ -414,7 +518,7 @@ export const DICTIONARY: Record<Language, Translations> = {
       point2: "Guaranteed warehouse inventory and fast dispatch within 24 hours",
       point3: "Full certification, official contract, and compliant electronic billing",
       btnTelegram: "Message Wholesale Sales on Telegram",
-      btnCall: "+998 (71) 200-44-88",
+      btnCall: "+998 (99) 088-11-55",
     },
     faq: {
       sectionTag: "Questions & Answers",
@@ -439,7 +543,7 @@ export const DICTIONARY: Record<Language, Translations> = {
         },
         {
           q: "How can I place a wholesale B2B order?",
-          a: "Contact our wholesale department directly via Telegram @purelife_uz or call +998 (71) 200-44-88.",
+          a: "Contact our wholesale department directly via Telegram @purelife_uz or call +998 (99) 088-11-55.",
         },
       ],
     },

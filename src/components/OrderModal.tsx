@@ -181,7 +181,7 @@ export default function OrderModal({
                   <input
                     type="tel"
                     required
-                    placeholder="+998 90 123-45-67"
+                    placeholder="+998 99 088-11-55"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"

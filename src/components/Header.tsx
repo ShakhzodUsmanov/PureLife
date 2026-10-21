@@ -10,7 +10,7 @@ interface HeaderProps {
   onOpenOrderModal?: () => void;
 }
 
-export default function Header({}: HeaderProps) {
+export default function Header({ }: HeaderProps) {
   const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,9 +24,9 @@ export default function Header({}: HeaderProps) {
   }, []);
 
   const navLinks = [
-    { label: t.nav.products, href: "#products" },
+    { label: t.nav.gels, href: "#gels" },
+    { label: t.nav.powders, href: "#powders" },
     { label: t.nav.why, href: "#technology" },
-    { label: t.nav.calculator, href: "#calculator" },
     { label: t.nav.b2b, href: "#b2b" },
     { label: t.nav.faq, href: "#faq" },
   ];
@@ -34,15 +34,14 @@ export default function Header({}: HeaderProps) {
   return (
     <header
       id="main-header"
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#FAF8F4]/90 backdrop-blur-md shadow-xs py-3 border-b border-black/5"
-          : "bg-transparent py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+        ? "bg-[#FAF8F4]/90 backdrop-blur-md shadow-xs py-3 border-b border-black/5"
+        : "bg-transparent py-5"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
+
           {/* Brand Logo */}
           <Link
             href="/"
@@ -70,7 +69,7 @@ export default function Header({}: HeaderProps) {
 
           {/* Right Actions: Lang + Telegram CTA */}
           <div className="hidden sm:flex items-center gap-4">
-            
+
             {/* Language Selector */}
             <div className="flex items-center bg-black/5 rounded-full p-1 text-xs font-bold text-[#526071]">
               {(["RU", "UZ", "EN"] as const).map((lang) => (
@@ -78,11 +77,10 @@ export default function Header({}: HeaderProps) {
                   key={lang}
                   type="button"
                   onClick={() => setLanguage(lang)}
-                  className={`px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer ${
-                    language === lang
-                      ? "bg-white text-[#0B1B2B] shadow-xs"
-                      : "text-[#526071] hover:text-[#0B1B2B]"
-                  }`}
+                  className={`px-2.5 py-1 rounded-full transition-all duration-150 cursor-pointer ${language === lang
+                    ? "bg-white text-[#0B1B2B] shadow-xs"
+                    : "text-[#526071] hover:text-[#0B1B2B]"
+                    }`}
                 >
                   {lang}
                 </button>
@@ -137,11 +135,10 @@ export default function Header({}: HeaderProps) {
                   key={lang}
                   type="button"
                   onClick={() => setLanguage(lang)}
-                  className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                    language === lang
-                      ? "bg-white text-[#0B1B2B] shadow-xs"
-                      : "text-[#526071]"
-                  }`}
+                  className={`px-3 py-1 rounded-full transition-all cursor-pointer ${language === lang
+                    ? "bg-white text-[#0B1B2B] shadow-xs"
+                    : "text-[#526071]"
+                    }`}
                 >
                   {lang}
                 </button>
@@ -149,11 +146,11 @@ export default function Header({}: HeaderProps) {
             </div>
 
             <a
-              href="tel:+998712004488"
+              href="tel:+998990881155"
               className="flex items-center gap-1.5 text-xs font-bold text-[#0B1B2B]"
             >
               <Phone className="w-3.5 h-3.5 text-[#1E9BFF]" />
-              <span>+998 (71) 200-44-88</span>
+              <span>+998 (99) 088-11-55</span>
             </a>
           </div>
         </div>

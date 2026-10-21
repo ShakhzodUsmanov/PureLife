@@ -11,7 +11,7 @@ export default function SeoStructuredData() {
     "logo": "https://purelife-care.com/images/products/bottle-blue-front.webp",
     "description": "Производитель ультраконцентрированных гелей для стирки 4 кг и эффективных стиральных порошков с энзимами нового поколения.",
     "email": "b2b@purelife-care.com",
-    "telephone": "+998 71 200 44 88",
+    "telephone": "+998 99 088 11 55",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Ташкент",
@@ -20,7 +20,7 @@ export default function SeoStructuredData() {
     "contactPoint": [
       {
         "@type": "ContactPoint",
-        "telephone": "+998 71 200 44 88",
+        "telephone": "+998 99 088 11 55",
         "contactType": "sales",
         "availableLanguage": ["Russian", "Uzbek", "English"],
       },

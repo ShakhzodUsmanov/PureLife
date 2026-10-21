@@ -7,6 +7,7 @@ export interface ProductWeightOption {
   recommendedDosage: string;
   priceEstimate?: string;
   isDefault?: boolean;
+  image?: string;
 }
 
 export interface ProductItem {
@@ -166,7 +167,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
     scentOrLine: "Active Granules",
     subtitle: "Инновационный порошок с синими активными гранулами против въевшихся пятен",
     format: "Плотный влагозащитный пакет с удобной ручкой для переноски",
-    image: "/images/products/new-line-powder.jpg",
+    image: "/images/products/powder-purelife-1kg.webp",
     accentColor: "#10B981",
     auraGlow: "rgba(16, 185, 129, 0.22)",
     badge: "Active Granules • Усиленная формула",
@@ -191,6 +192,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
         yieldDescription: "до 20 полноценных циклов стирки (50 г на загрузку)",
         recommendedDosage: "50 г на 4-5 кг белья средней степени загрязнения",
         isDefault: true,
+        image: "/images/products/powder-purelife-1kg.webp",
       },
       {
         id: "nl-400g",
@@ -200,6 +202,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
         yieldDescription: "до 8 стирок (удобно брать в поездки или на пробу)",
         recommendedDosage: "50 г на 4-5 кг белья",
         isDefault: false,
+        image: "/images/products/powder-purelife-400gram.webp",
       },
     ],
     composition: {
@@ -223,7 +226,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
     scentOrLine: "Экономная Стирка / New Formula",
     subtitle: "Сбалансированное решение для ежедневной чистоты по доступной цене",
     format: "Классическая упаковка с просечкой для комфортного вскрытия",
-    image: "/images/products/classic-powder.jpg",
+    image: "/images/products/powder-life-900gram.webp",
     accentColor: "#0284C7",
     auraGlow: "rgba(2, 132, 199, 0.20)",
     badge: "Экономная стирка • 900+5г бонус",
@@ -248,6 +251,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
         yieldDescription: "до 18 стирок для семейного гардероба",
         recommendedDosage: "50-60 г на стандартную загрузку 4-5 кг",
         isDefault: true,
+        image: "/images/products/powder-life-900gram.webp",
       },
       {
         id: "classic-300g",
@@ -257,6 +261,7 @@ export const PRODUCTS_POWDERS: ProductItem[] = [
         yieldDescription: "до 6 стирок (мобильный компактный формат)",
         recommendedDosage: "50 г на загрузку",
         isDefault: false,
+        image: "/images/products/powder-life-300gram.webp",
       },
     ],
     composition: {
