@@ -55,6 +55,18 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [
+      { url: "/purelife-icon.svg", type: "image/svg+xml" },
+      { url: "/purelife-icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/purelife-icon-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/purelife-icon-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "PureLife — Свежесть, которая остается с вами",
     description:
